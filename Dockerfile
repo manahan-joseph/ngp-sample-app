@@ -1,5 +1,10 @@
-#Download Python from DockerHub and use it
-FROM python:3.7.4
+FROM centos:7
+
+# Install Python
+RUN yum update -y \
+ && yum install -y \
+    python3-pip \
+    python3-devel
 
 #Set the working directory in the Docker container
 WORKDIR /code
@@ -8,10 +13,10 @@ WORKDIR /code
 COPY requirements.txt .
 
 #Install the dependencies
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 #Copy the Flask app code to the working directory
 COPY src/ .
 
 #Run the container
-CMD [ "python", "./sample_app.py" ]
+CMD [ "python3", "./sample_app.py" ]
